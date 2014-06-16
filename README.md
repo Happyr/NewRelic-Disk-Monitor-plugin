@@ -1,6 +1,11 @@
 ## New Relic Disk Plugin
 
-Monitors server's disk in a OpenVZ container. This is not supported by NewRelic by default. 
+If you can't see the disk I/O utilization in New Relic you may run your server in a OpenVZ container. New Relic does not
+support this because that an OpenVZ container doesn't behave exactly like a real VM--it's a piece of a machine, not running 
+its own full OS, and they just don't have capability to monitor it because we rely on OS-level stats which you won't have 
+access to from your container.
+
+This plugin allows you to monitor your server's disks usage in a OpenVZ container. 
 
 ### Requirements
 
@@ -20,12 +25,12 @@ software components installed:
 
 Plugin can  be started as a daemon using the following command:
 
-  ./newrelic_disk_agent.daemon start
+```./newrelic_disk_agent.daemon start```
 
 In this case you can check its status by running
 
-  ./newrelic_disk_agent.daemon status
+```./newrelic_disk_agent.daemon status```
 
 and stop it with
 
-  ./newrelic_disk_agent.daemon stop
+```./newrelic_disk_agent.daemon stop```
