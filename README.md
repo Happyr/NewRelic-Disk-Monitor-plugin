@@ -5,7 +5,8 @@ support this because that an OpenVZ container doesn't behave exactly like a real
 its own full OS, and they just don't have capability to monitor it because we rely on OS-level stats which you won't have 
 access to from your container.
 
-This plugin allows you to monitor your server's disks usage in a OpenVZ container. 
+This plugin allows you to monitor your server's disks usage in a OpenVZ container. It does not provide you with information
+about reads and writes. The purpose of this plugin is that it will warn you when your disks are almost full.
 
 ### Requirements
 
