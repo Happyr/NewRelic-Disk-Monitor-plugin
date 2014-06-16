@@ -5,6 +5,5 @@ newrelic:
 # Agent Configuration:
 #
 agents:
-  disk_agents:
-    -
-      instance_name: "Disk agent instance"
+  default:
+    foo: "bar"

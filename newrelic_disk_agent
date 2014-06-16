@@ -9,8 +9,8 @@ module DiskAgent
   class Agent < NewRelic::Plugin::Agent::Base
     agent_guid 'com.happyr.newrelic-disk-agent'
     agent_config_options :instance_name
-    agent_version '0.0.1'
-    agent_human_labels('Disk') { instance_name }
+    agent_version '0.1.0'
+    agent_human_labels('Disks') { `hostname -f` }
 
     def poll_cycle
       data = `df | tr -s ' ' | cut -d " " -f2,3,6`
@@ -25,8 +25,7 @@ module DiskAgent
     end
   end
 
-  NewRelic::Plugin::Config.config_file = File.dirname(__FILE__) + '/config/newrelic_plugin.yml'
-  NewRelic::Plugin::Setup.install_agent :disk_agents, DiskAgent
+  NewRelic::Plugin::Setup.install_agent :default, DiskAgent
 
   NewRelic::Plugin::Run.setup_and_run
 
