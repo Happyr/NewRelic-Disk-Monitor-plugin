@@ -23,7 +23,7 @@ software components installed:
 2. Edit `config/newrelic_plugin.yml` and replace "YOUR_LICENSE_KEY_HERE" with your New Relic license key
 3. Running the plugin
 
-Plugin can  be started as a daemon using the following command:
+Plugin can be started as a daemon using the following command (as root):
 
 ```./newrelic_disk_agent.daemon start```
 
