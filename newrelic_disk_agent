@@ -4,8 +4,6 @@ require 'rubygems'
 require 'bundler/setup'
 require 'newrelic_plugin'
 
-require 'vmstat'
-
 module DiskAgent
 
   class Agent < NewRelic::Plugin::Agent::Base
@@ -15,14 +13,18 @@ module DiskAgent
     agent_human_labels('Disk') { instance_name }
 
     def poll_cycle
-      report_metric 'Disk/Free', 'Free',     Vmstat.snapshot.disks("/").free_bytes
-      report_metric 'Disk/Used', 'Used',     Vmstat.snapshot.disks("/").used_bytes
-      report_metric 'Disk/Total', 'Total', Vmstat.snapshot.disks("/").total_bytes
+      data = `df -h | tr -s ' ' | cut -d " " -f2,3,6`
+      data.each_line do |line,index|
+        if index>1
+          parts = line.split
+          report_metric 'Disk', parts[2], {"count"=>parts[1], "total"=>parts[0]}
+        end
+      end
     end
   end
 
   NewRelic::Plugin::Config.config_file = File.dirname(__FILE__) + '/config/newrelic_plugin.yml'
-  NewRelic::Plugin::Setup.install_agent :disk_agents, self
+  NewRelic::Plugin::Setup.install_agent :disk_agents, DiskAgent
 
   NewRelic::Plugin::Run.setup_and_run
 
