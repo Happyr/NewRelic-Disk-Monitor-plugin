@@ -31,4 +31,4 @@ and stop it with
   ./newrelic_disk_agent.daemon stop
 
 ### Fork information
-This is a fork from Steven Eksteen and his plugin [newrelic_sidekiq_agent](https://github.com/mscifo/newrelic_sidekiq_agent).
+This is a fork from Matt Scifo and his plugin [newrelic_sidekiq_agent](https://github.com/mscifo/newrelic_sidekiq_agent).
