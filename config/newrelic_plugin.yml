@@ -1,2 +1,10 @@
 newrelic:
   license_key: "YOUR_LICENCE_KEY"
+
+#
+# Agent Configuration:
+#
+agents:
+  disk_agents:
+    -
+      instance_name: "Disk agent instance"

@@ -22,7 +22,7 @@ module DiskAgent
   end
 
   NewRelic::Plugin::Config.config_file = File.dirname(__FILE__) + '/config/newrelic_plugin.yml'
-  NewRelic::Plugin::Setup.install_agent :disk_agent, self
+  NewRelic::Plugin::Setup.install_agent :disk_agents, self
 
   NewRelic::Plugin::Run.setup_and_run
 
