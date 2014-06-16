@@ -15,9 +15,9 @@ module DiskAgent
     agent_human_labels('Disk') { instance_name }
 
     def poll_cycle
-      report_metric 'Disk/Free', 'Free',     Vmstat.snapshot.disk("/").free_bytes
-      report_metric 'Disk/Used', 'Used',     Vmstat.snapshot.disk("/").used_bytes
-      report_metric 'Disk/Total', 'Total', Vmstat.snapshot.disk("/").total_bytes
+      report_metric 'Disk/Free', 'Free',     Vmstat.snapshot.disks("/").free_bytes
+      report_metric 'Disk/Used', 'Used',     Vmstat.snapshot.disks("/").used_bytes
+      report_metric 'Disk/Total', 'Total', Vmstat.snapshot.disks("/").total_bytes
     end
   end
 
