@@ -33,5 +33,6 @@ software components installed:
 1. Make sure you get a representable response from `hostname -f`.
 2. If you don't use the exact paths from the instructions make sure to update the ini-file
 3. Make sure that the `newrelic` user has a shell. `usermod -s /bin/sh newrelic`
+4. Check if the plugin has started with `ps aux | grep "newrelic_disk_agent"`. If you don't find any running process (except from the ´ps` command) you may remove the pid file. `sudo rm /var/run/newrelic-disk-agent.pid`
 
 

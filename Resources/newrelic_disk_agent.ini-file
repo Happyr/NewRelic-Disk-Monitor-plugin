@@ -13,7 +13,7 @@
 DESC="New Relic Disk Plugin Daemon"
 NAME=newrelic-disk-agent
 VERSION=0.1.0
-DAEMON=./agent
+DAEMON=./newrelic_disk_agent
 DAEMONDIR=/opt/NewRelic-Disk-Monitor-plugin
 PIDFILE=/var/run/$NAME.pid
 USER=newrelic
@@ -32,8 +32,7 @@ start() {
   else
     echo "Starting $NAME"
     cd $DAEMONDIR
-    su $USER -c "bundle exec $DAEMON >> $DAEMONDIR/daemon.log 2>&1 &"
-    echo "$!" > $PIDFILE
+    su $USER -c "bundle exec $DAEMON >> $DAEMONDIR/daemon.log 2>&1 &" & echo "$!" > $PIDFILE
   fi
 }
 
