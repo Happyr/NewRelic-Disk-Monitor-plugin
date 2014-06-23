@@ -1,4 +1,4 @@
-## New Relic Disk Plugin
+## New Relic Disk Monitor Plugin
 
 If you can't see the disk I/O utilization in New Relic you may run your server in a OpenVZ container. New Relic does not
 support this because that an OpenVZ container doesn't behave exactly like a real VM--it's a piece of a machine, not running 
@@ -20,18 +20,11 @@ software components installed:
 
 ### Instructions for running the agent
 
-1. run `bundle install` to install required gems
-2. Edit `config/newrelic_plugin.yml` and replace "YOUR_LICENSE_KEY_HERE" with your New Relic license key
-3. Running the plugin
+1. Clone the repository into /opt/
+2. Run `cd /opt/NewRelic-Disk-Monitor-plugin`
+3. Run `bundle install` to install required gems
+4. Edit `config/newrelic_plugin.yml` and replace "YOUR_LICENSE_KEY_HERE" with your New Relic license key
+5. Copy the init file `sudo cp /opt/NewRelic-Disk-Monitor-plugin/Resources/newrelic_disk_agent.ini-file /etc/init.d/newrelic-disk-monitor`
+6. Start the plugin by running `sudo /etc/init.d/newrelic-disk-monitor start` 
 
-Plugin can be started as a daemon using the following command (as root):
 
-```./newrelic_disk_agent.daemon start```
-
-In this case you can check its status by running
-
-```./newrelic_disk_agent.daemon status```
-
-and stop it with
-
-```./newrelic_disk_agent.daemon stop```
