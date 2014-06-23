@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler/setup'
+require 'newrelic_plugin'
+
+module DiskAgent
+
+  class Agent < NewRelic::Plugin::Agent::Base
+    agent_guid 'com.happyr.newrelic-disk-agent'
+    agent_config_options :instance_name
+    agent_version '0.1.0'
+    agent_human_labels('Disks') { `hostname -f` }
+
+    def poll_cycle
+      data = `df | tr -s ' ' | cut -d " " -f2,3,6`
+      data.each_with_index do |line, index|
+        if index > 0
+          parts = line.split
+          report_metric "MountPoint/"+parts[2], "bytes", parts[1]
+          report_metric "MountPoint/"+parts[2], "Total", parts[0]
+          report_metric "MountPoint/"+parts[2], "Percent", parts[1].to_f / parts[0].to_f
+        end
+      end
+    end
+  end
+
+  NewRelic::Plugin::Setup.install_agent :default, DiskAgent
+
+  NewRelic::Plugin::Run.setup_and_run
+
+end
