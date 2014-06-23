@@ -7,15 +7,16 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: New Relic Disk Plugin
-# Description:       Controls the New Relic <%= @plugin_name %> Plugin
+# Description:       Controls the New Relic Disk Monitor Plugin
 ### END INIT INFO
 
 DESC="New Relic Disk Plugin Daemon"
 NAME=newrelic-disk-agent
 VERSION=0.1.0
 DAEMON=./agent
-DAEMONDIR=/opt/newrelic_disk_agent
+DAEMONDIR=/opt/NewRelic-Disk-Monitor-plugin
 PIDFILE=/var/run/$NAME.pid
+USER=newrelic
 
 get_pid() {
   cat "$PIDFILE"
@@ -31,7 +32,7 @@ start() {
   else
     echo "Starting $NAME"
     cd $DAEMONDIR
-    su <%= @user %> -c "<%= @run_command %> $DAEMON >> $DAEMONDIR/daemon.log 2>&1 &"
+    su $USER -c "bundle exec $DAEMON >> $DAEMONDIR/daemon.log 2>&1 &"
     echo "$!" > $PIDFILE
   fi
 }
