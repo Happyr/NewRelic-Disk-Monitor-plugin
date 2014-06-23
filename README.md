@@ -25,6 +25,13 @@ software components installed:
 3. Run `bundle install` to install required gems
 4. Edit `config/newrelic_plugin.yml` and replace "YOUR_LICENSE_KEY_HERE" with your New Relic license key
 5. Copy the init file `sudo cp /opt/NewRelic-Disk-Monitor-plugin/Resources/newrelic_disk_agent.ini-file /etc/init.d/newrelic-disk-monitor`
-6. Start the plugin by running `sudo /etc/init.d/newrelic-disk-monitor start` 
+6. Give the ini file the correct permission with `sudo chmod +x /etc/init.d/newrelic-disk-monitor`
+7. Start the plugin by running `sudo /etc/init.d/newrelic-disk-monitor start`
+
+### Troubleshoot
+
+1. Make sure you get a representable response from `hostname -f`.
+2. If you don't use the exact paths from the instructions make sure to update the ini-file
+3. Make sure that the `newrelic` user has a shell. `usermod -s /bin/sh newrelic`
 
 
