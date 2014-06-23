@@ -32,7 +32,7 @@ start() {
   else
     echo "Starting $NAME"
     cd $DAEMONDIR
-    su $USER -c "bundle exec $DAEMON >> $DAEMONDIR/daemon.log 2>&1 &" & echo "$!" > $PIDFILE
+    su $USER -c "bundle exec $DAEMON >> $DAEMONDIR/daemon.log 2>&1 & echo \$!" > $PIDFILE
   fi
 }
 
