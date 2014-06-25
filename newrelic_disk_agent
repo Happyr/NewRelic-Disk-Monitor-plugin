@@ -13,14 +13,12 @@ module DiskAgent
     agent_human_labels('Disks') { `hostname -f` }
 
     def poll_cycle
-      data = `df | tr -s ' ' | cut -d " " -f2,3,6`
-      data.each_with_index do |line, index|
-        if index > 0
-          parts = line.split
-          report_metric "MountPoint/"+parts[2], "bytes", parts[1]
-          report_metric "MountPoint/"+parts[2], "Total", parts[0]
-          report_metric "MountPoint/"+parts[2], "Percent", parts[1].to_f / parts[0].to_f
-        end
+      data = `df | tr -s ' ' | cut -d " " -f2,3,6 | sed 1d`
+      data.each_line do |line|
+        parts = line.split
+        report_metric "MountPoint/"+parts[2], "bytes", parts[1]
+        report_metric "MountPoint/"+parts[2], "Total", parts[0]
+        report_metric "MountPoint/"+parts[2], "Percent", parts[1].to_f / parts[0].to_f
       end
     end
   end
