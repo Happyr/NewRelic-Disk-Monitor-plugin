@@ -20,19 +20,19 @@ software components installed:
 
 ### Instructions for running the agent
 
-1. Clone the repository into /opt/
-2. Run `cd /opt/NewRelic-Disk-Monitor-plugin`
+1. Clone the repository into `/opt/newrelic-disk-monitor`
+2. Run `cd /opt/newrelic-disk-monitor`
 3. Run `bundle install` to install required gems
 4. Edit `config/newrelic_plugin.yml` and replace "YOUR_LICENSE_KEY_HERE" with your New Relic license key
-5. Copy the init file `sudo cp /opt/NewRelic-Disk-Monitor-plugin/Resources/newrelic_disk_agent.ini-file /etc/init.d/newrelic-disk-monitor`
-6. Give the ini file the correct permission with `sudo chmod +x /etc/init.d/newrelic-disk-monitor`
+5. Copy the init file for your distribution e.g. `sudo cp /opt/newrelic-disk-monitor/init.d/debian /etc/init.d/newrelic-disk-monitor`
+6. Give the init file the correct permissions with `sudo chmod +x /etc/init.d/newrelic-disk-monitor`
 7. Start the plugin by running `sudo /etc/init.d/newrelic-disk-monitor start`
 
 ### Troubleshoot
 
 1. Make sure you get a representable response from `hostname -f`.
-2. If you don't use the exact paths from the instructions make sure to update the ini-file
-3. Make sure that the `newrelic` user has a shell. `usermod -s /bin/sh newrelic`
+2. Make sure to update the init file or `/etc/default/newrelic-disk-monitor` with a proper path to the repository clone.
+3. For some init.d scripts make sure that the `newrelic` user has a shell - `usermod -s /bin/sh newrelic`.
 4. Check if the plugin has started with `ps aux | grep "newrelic_disk_agent"`. If you don't find any running process (except from the ´ps` command) you may remove the pid file. `sudo rm /var/run/newrelic-disk-agent.pid`
 
 

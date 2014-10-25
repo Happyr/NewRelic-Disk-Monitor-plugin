@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          newrelic-disk-agent
+# Provides:          newrelic-disk-monitor
 # Required-Start:    $syslog $remote_fs
 # Required-Stop:     $syslog $remote_fs
 # Default-Start:     2 3 4 5
@@ -11,10 +11,10 @@
 ### END INIT INFO
 
 DESC="New Relic Disk Plugin Daemon"
-NAME=newrelic-disk-agent
+NAME=newrelic-disk-monitor
 VERSION=0.2.0
-DAEMON=./newrelic_disk_agent
-DAEMONDIR=/opt/NewRelic-Disk-Monitor-plugin
+DAEMON=./newrelic-disk-monitor
+DAEMONDIR=/opt/newrelic-disk-monitor
 PIDFILE=/var/run/$NAME.pid
 USER=newrelic
 
