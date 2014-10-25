@@ -1,0 +1,87 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          newrelic-disk-monitor
+# Required-Start:    $syslog $remote_fs
+# Required-Stop:     $syslog $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: New Relic Disk Plugin
+# Description:       Controls the New Relic Disk Monitor Plugin
+### END INIT INFO
+
+NAME=newrelic-disk-agent
+
+DAEMONDIR=/opt/newrelic-disk-monitor
+PIDFILE=/var/run/newrelic/$NAME.pid
+LOGFILE=/var/log/newrelic/$NAME.log
+USER=newrelic
+GROUP=newrelic
+BUNDLE=/usr/bin/bundle
+
+[ -r /etc/default/newrelic-disk-monitor ] && . /etc/default/newrelic-disk-monitor
+
+DESC="New Relic Disk Plugin Daemon"
+DAEMON=./newrelic-disk-monitor
+
+get_pid() {
+  cat "$PIDFILE"
+}
+
+is_running() {
+  [ -f "$PIDFILE" ] && ps `get_pid` > /dev/null 2>&1
+}
+
+start() {
+  if is_running; then
+    echo "$DESC is already running"
+  else
+    echo "Starting $DESC"
+    start-stop-daemon -d $DAEMONDIR -c $USER -g $GROUP --start -mp $PIDFILE -bC -a $BUNDLE -- exec $DAEMON >> $LOGFILE
+  fi
+}
+
+status() {
+  if is_running; then
+    echo "$DESC is running"
+  else
+    echo "$DESC is stopped"
+    exit 1
+  fi
+}
+
+stop() {
+  if is_running; then
+    echo "Stopping $DESC"
+    start-stop-daemon --stop -p $PIDFILE --oknodo
+  else
+    echo "$DESC is not running"
+  fi
+}
+
+restart() {
+  stop
+  sleep 1
+  start
+}
+
+case "${1}" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status
+    ;;
+  restart)
+    restart
+    ;;
+  *)
+    echo "Usage: ${0} {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
+
+exit 0
