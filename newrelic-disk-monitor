@@ -16,10 +16,10 @@ module DiskAgent
       data = `df -B 1 | tr -s ' ' | cut -d " " -f2,3,6 | sed 1d`
       data.each_line do |line|
         parts = line.split
-        report_metric "MountPoint/"+parts[2], "bytes", parts[1]
-        report_metric "MountPoint/"+parts[2], "Total", parts[0]
-        report_metric "MountPoint/"+parts[2], "bytesAvailable", parts[0]-parts[1]
-        report_metric "MountPoint/"+parts[2], "Percent", 100 * parts[1].to_f / parts[0].to_f
+	report_metric "MountPoint/"+parts[2], "UsedBytes", parts[1]
+	report_metric "MountPoint/"+parts[2], "TotalBytes", parts[0]
+	report_metric "MountPoint/"+parts[2], "AvailableBytes", parts[0]-parts[1]
+	report_metric "MountPoint/"+parts[2], "UsedPercentage", 100 * parts[1].to_f / parts[0].to_f
       end
     end
   end
