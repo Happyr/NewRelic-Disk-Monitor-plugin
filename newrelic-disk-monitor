@@ -10,10 +10,10 @@ module DiskAgent
     agent_guid 'com.happyr.newrelic-disk-agent'
     agent_config_options :instance_name
     agent_version '0.2.0'
-    agent_human_labels('Disks') { `hostname -f` }
+    agent_human_labels('Disks') { `hostname` }
 
     def poll_cycle
-      data = `df | tr -s ' ' | cut -d " " -f2,3,6 | sed 1d`
+      data = `df -B 1 | tr -s ' ' | cut -d " " -f2,3,6 | sed 1d`
       data.each_line do |line|
         parts = line.split
         report_metric "MountPoint/"+parts[2], "bytes", parts[1]
